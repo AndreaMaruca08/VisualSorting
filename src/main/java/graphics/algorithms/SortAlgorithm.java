@@ -14,7 +14,7 @@ public abstract class SortAlgorithm {
     protected final String name;
     protected final String description;
     protected final String complexity;
-    protected boolean finished = true;
+    protected boolean finished = false;
     protected int delayMs;
     public SortAlgorithm(String name, String description, String complexity, int delayMs) {
         this.name = name;
@@ -54,10 +54,10 @@ public abstract class SortAlgorithm {
         AtomicBoolean running = new AtomicBoolean(true);
 
         timer.addActionListener(e -> {
-            finished = true;
+            finished = false;
             if (!running.get()) {
                 timer.stop();
-                finished = false;
+                finished = true;
                 board.aggiorna(AlgorithmPage.dimensioneBoard);
                 return;
             }
@@ -65,7 +65,7 @@ public abstract class SortAlgorithm {
             if (!internSort(arr, p25, p50, p85, board, () -> board.aggiorna(AlgorithmPage.dimensioneBoard))) {
                 running.set(false);
                 timer.stop();
-                finished = false;
+                finished = true;
                 board.aggiorna(AlgorithmPage.dimensioneBoard);
             }
         });

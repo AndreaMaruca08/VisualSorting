@@ -21,7 +21,7 @@ void main() {
 
     SortAlgorithm algorithm = new BubbleSort(20);
 
-    AlgorithmPage algPage = new AlgorithmPage(gestorePagine, algorithm, arr);
+    AlgorithmPage algPage = new AlgorithmPage(gestorePagine, algorithm, arr, 0, 70);
 
     gestorePagine.addPagina("algo", algPage);
     gestorePagine.cambiaPagina("algo");

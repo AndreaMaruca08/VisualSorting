@@ -2,6 +2,7 @@ package graphics.components;
 
 import graphics.utilities.Dimensione;
 import graphics.utilities.GestoreGrafico;
+import lombok.Setter;
 import utilities.ArraysFactory;
 
 import java.awt.*;
@@ -11,7 +12,8 @@ import java.util.List;
 public class Board extends AlgComponent {
 
     public final List<Column> columns = new ArrayList<>();
-    private final long[] arr;
+    @Setter
+    private long[] arr;
 
     public Board(Dimensione dimensione, long[] arr) {
         super(dimensione);
@@ -35,6 +37,13 @@ public class Board extends AlgComponent {
             Dimensione colonna = new Dimensione(x, y, colW - 1, barHeight);
             columns.add(new Column(l, arr.length, colonna));
         }
+    }
+
+    public void deselect() {
+        for(Column col : columns) col.deselect();
+    }
+    public void select() {
+        for(Column col : columns) col.select();
     }
 
     @Override
