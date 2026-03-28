@@ -8,6 +8,13 @@ import utilities.ArraysFactory;
 import javax.swing.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+/**
+ * <h3>Abstract base class for sorting algorithms.</h3>
+ * Provides common functionality and properties for sorting algorithms.<br>
+ * Provides methods for <b> sorting and measuring</b> the performance of the algorithm.
+ *
+ * @author Andrea Maruca
+ */
 @Getter
 @Setter
 public abstract class SortAlgorithm {
@@ -76,6 +83,7 @@ public abstract class SortAlgorithm {
     }
 
     public abstract void reset();
+
     protected abstract boolean internSort(long[] arr, long p25, long p50, long p75, AlgorithmPage board, Runnable update);
 
     protected int getSuono (long current, long p25, long p50, long p75){

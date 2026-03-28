@@ -7,6 +7,12 @@ import graphics.utilities.SoundManager;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * <h3>Represents the Bubble Sort algorithm.</h3>
+ * Implements the SortAlgorithm abstract class and provides the logic for sorting arrays using the Bubble Sort algorithm.
+ *
+ * @author Andrea Maruca
+ */
 public class BubbleSort extends SortAlgorithm {
 
     public BubbleSort(int delayMs) {

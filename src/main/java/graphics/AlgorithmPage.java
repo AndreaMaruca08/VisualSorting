@@ -25,6 +25,7 @@ public class AlgorithmPage extends JPanel {
     public static final Dimensione dimensioneBoard = new Dimensione(5,10,90, 60);
     private static final Dimensione dimensioneText = new Dimensione(0,1,100, 5);
     private static final Dimensione dimensioneComandi = new Dimensione(0,1,30, 10);
+    private static final Dimensione dimensioneAutore = new Dimensione(80,1,20, 10);
     private static final Dimensione dimensioneDettagli = new Dimensione(0,70,50, 20);
     private static final Dimensione dimensioneAlgoritmoString = new Dimensione(50,70,45, 35);
 
@@ -117,6 +118,7 @@ public class AlgorithmPage extends JPanel {
 
         gestoreGrafico.testo(dimensioneText, algorithm.getName(), Color.WHITE);
         gestoreGrafico.font(1);
+        gestoreGrafico.testo(dimensioneAutore, "Autore: Andrea Maruca", Color.WHITE);
         gestoreGrafico.disegnaTestoWrap(dettagli, dimensioneDettagli, Color.WHITE);
         gestoreGrafico.disegnaTestoWrap(algorithm.algoToString(), dimensioneAlgoritmoString, Color.WHITE);
         gestoreGrafico.disegnaTestoWrap(

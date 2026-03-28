@@ -6,6 +6,12 @@ import lombok.Getter;
 
 import java.awt.*;
 
+/**
+ * Represents a column component in the graphics system.
+ * Extends AlgComponent and provides functionality for rendering and managing column values.
+ *
+ * @author Andrea Maruca
+ */
 @Getter
 public class Column extends AlgComponent{
     private long val;

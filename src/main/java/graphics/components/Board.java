@@ -9,6 +9,12 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Represents a board component in the graphics system.
+ * Extends AlgComponent and provides functionality for rendering and managing columns.
+ *
+ * @author Andrea Maruca
+ */
 public class Board extends AlgComponent {
 
     public final List<Column> columns = new ArrayList<>();

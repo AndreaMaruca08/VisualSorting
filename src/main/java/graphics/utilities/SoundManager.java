@@ -6,6 +6,9 @@ import javax.sound.sampled.Clip;
 import java.io.BufferedInputStream;
 import java.io.InputStream;
 
+/**
+ * <h3>Utility class for managing sound effects in the application.</h3>
+ */
 public final class SoundManager {
     private SoundManager(){}
 
