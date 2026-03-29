@@ -22,7 +22,7 @@ void main() {
     final int min = 0;
     final int max = 70;
 
-    long[] arr = ArraysFactory.createArrayRandom(50, min, max);
+    long[] arr = ArraysFactory.createArrayRandom(10, min, max);
 
     for(int i = 1; i <= pages.length; i++){
         pages[i-1] = new AlgorithmPage(gestorePagine, ALGORITHMS[i-1], arr, min, max);

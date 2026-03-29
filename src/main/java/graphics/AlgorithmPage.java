@@ -2,6 +2,7 @@ package graphics;
 
 import graphics.algorithms.BubbleSort;
 import graphics.algorithms.InsertionSort;
+import graphics.algorithms.MergeSort;
 import graphics.algorithms.SortAlgorithm;
 import graphics.components.Board;
 import graphics.utilities.Dimensione;
@@ -30,13 +31,14 @@ public class AlgorithmPage extends JPanel {
     private static final Dimensione dimensioneAutore = new Dimensione(80,1,20, 10);
     private static final Dimensione dimensioneSwapsCompares = new Dimensione(0,15,20, 10);
     private static final Dimensione dimensioneDettagli = new Dimensione(0,70,50, 20);
-    private static final Dimensione dimensioneAlgoritmoString = new Dimensione(50,70,45, 35);
+    private static final Dimensione dimensioneAlgoritmoString = new Dimensione(60,70,45, 35);
 
     private String dettagli = "";
 
     public static final SortAlgorithm[] ALGORITHMS = {
             new InsertionSort(20),
-            new BubbleSort(20)
+            new BubbleSort(20),
+            new MergeSort(20)
     };
 
     public AlgorithmPage(GestorePagine gestorePagine, SortAlgorithm algorithm, long[] arr, int min, int max) {
@@ -143,7 +145,6 @@ public class AlgorithmPage extends JPanel {
         gestoreGrafico.testo(dimensioneAutore, "Autore: Andrea Maruca", Color.WHITE);
         gestoreGrafico.disegnaTestoWrap(dettagli, dimensioneDettagli, Color.WHITE);
         gestoreGrafico.disegnaTestoWrap("\nScambi: " + algorithm.getSwaps() + "\n\nConfronti: " + algorithm.getCompares(), dimensioneSwapsCompares, Color.WHITE);
-        gestoreGrafico.disegnaTestoWrap(algorithm.algoToString(), dimensioneAlgoritmoString, Color.WHITE);
         gestoreGrafico.disegnaTestoWrap(
                 "R : Mischia\n" +
                 "F : Ricrea array\n" +
@@ -154,6 +155,9 @@ public class AlgorithmPage extends JPanel {
                         "\n1, 2, 3, 4, 5, 6, 7, 8, 9 : cambia",
                 dimensioneComandi, Color.WHITE
         );
+        if(algorithm.algoToString().length() > 400)
+            gestoreGrafico.font(0.5);
+        gestoreGrafico.disegnaTestoWrap(algorithm.algoToString(), dimensioneAlgoritmoString, Color.WHITE);
 
         gestoreGrafico.draw(board);
     }

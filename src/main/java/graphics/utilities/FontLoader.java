@@ -1,16 +1,11 @@
 
 package graphics.utilities;
 
-import lombok.extern.java.Log;
-
 import java.awt.*;
-import java.io.InputStream;
-import java.util.Objects;
 
 /**
  * @author Andrea Maruca
  */
-@Log
 public final class FontLoader {
 
     private FontLoader() {}
