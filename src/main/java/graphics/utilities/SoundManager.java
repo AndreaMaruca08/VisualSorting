@@ -12,6 +12,8 @@ import java.io.InputStream;
 public final class SoundManager {
     private SoundManager(){}
 
+    public static final int NULL = 0;
+
     public static void play(String nomeSuono){
         try {
             InputStream is = SoundManager.class.getResourceAsStream("/" + nomeSuono);
@@ -29,6 +31,8 @@ public final class SoundManager {
     }
 
     public static void scambio(int num){
+        if(num == NULL)
+            return;
         String nomeSuono = "scambio" + num + ".wav";
         play(nomeSuono);
     }

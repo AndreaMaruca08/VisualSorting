@@ -1,13 +1,15 @@
 import graphics.AlgorithmPage;
-import graphics.algorithms.BubbleSort;
-import graphics.algorithms.SortAlgorithm;
 import graphics.utilities.GestorePagine;
 import utilities.ArraysFactory;
 
 import javax.swing.*;
 import java.awt.*;
 
+import static graphics.AlgorithmPage.ALGORITHMS;
+
 public static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
+public static final AlgorithmPage[] pages = new AlgorithmPage[ALGORITHMS.length];
 
 void main() {
     JFrame finestra = new JFrame("Algoritmi di sorting");
@@ -17,14 +19,17 @@ void main() {
     GestorePagine gestorePagine = new GestorePagine();
     finestra.setContentPane(GestorePagine.container);
 
-    long[] arr = ArraysFactory.createArrayRandom(10, 0, 70);
+    final int min = 0;
+    final int max = 70;
 
-    SortAlgorithm algorithm = new BubbleSort(20);
+    long[] arr = ArraysFactory.createArrayRandom(50, min, max);
 
-    AlgorithmPage algPage = new AlgorithmPage(gestorePagine, algorithm, arr, 0, 70);
+    for(int i = 1; i <= pages.length; i++){
+        pages[i-1] = new AlgorithmPage(gestorePagine, ALGORITHMS[i-1], arr, min, max);
+        gestorePagine.addPagina("algo"+i, pages[i-1]);
+    }
 
-    gestorePagine.addPagina("algo", algPage);
-    gestorePagine.cambiaPagina("algo");
+    gestorePagine.cambiaPagina("algo1");
 
     finestra.setVisible(true);
 }

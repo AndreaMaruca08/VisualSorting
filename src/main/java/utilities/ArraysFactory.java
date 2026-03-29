@@ -8,7 +8,7 @@ public final class ArraysFactory {
         if(min < 0) throw new BadDataEx("min < 0");
         if(max > 1_000_000_000) throw new BadDataEx("max > 1_000_000");
         if(size < 0) throw new BadDataEx("size < 0");
-        if(size > 1000) throw new BadDataEx("size > 1000");
+        if(size > 350) throw new BadDataEx("size > 350");
 
         long[] arr = new long[size];
 

@@ -56,6 +56,7 @@ public class Board extends AlgComponent {
     public void draw(GestoreGrafico gestoreGrafico) {
         double colW = dimensione.width() / arr.length;
         double usableHeight = dimensione.height() - (dimensione.height() / 7);
+        double gap = 0.2;
 
         for (int i = 0; i < arr.length; i++) {
             Column col = columns.get(i);
@@ -66,7 +67,7 @@ public class Board extends AlgComponent {
             double y = dimensione.y() + usableHeight - barHeight;
 
             col.setVal(l);
-            col.setDimensione(new Dimensione(x, y, colW - 1, barHeight));
+            col.setDimensione(new Dimensione(x, y, colW - gap, barHeight));
 
             gestoreGrafico.draw(col);
         }

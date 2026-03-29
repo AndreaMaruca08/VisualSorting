@@ -2,7 +2,6 @@ package graphics.algorithms;
 
 import graphics.AlgorithmPage;
 import graphics.components.Column;
-import graphics.utilities.Dimensione;
 import graphics.utilities.SoundManager;
 
 import java.util.concurrent.atomic.AtomicInteger;
@@ -22,7 +21,7 @@ public class BubbleSort extends SortAlgorithm {
                         "ripetuti tra elementi adiacenti. Scambia due elementi " +
                         "se sono nell’ordine sbagliato, “facendo salire” progressivamente" +
                         " i valori più grandi verso la fine dell’array.",
-                "O(n^2)",
+                "O(n²)",
                 delayMs
         );
     }
@@ -31,7 +30,7 @@ public class BubbleSort extends SortAlgorithm {
     private final AtomicInteger j = new AtomicInteger(0);
 
     @Override
-    public void reset() {
+    public void internalReset() {
         i.set(0);
         j.set(0);
     }
@@ -55,34 +54,28 @@ public class BubbleSort extends SortAlgorithm {
         Column c1 = cols.get(currentJ);
         Column c2 = cols.get(currentJ + 1);
 
-        c1.select();
-        c2.select();
-        update.run();
+        select(update, c1, c2);
         SoundManager.scambio(getSuono(arr[currentJ], p25, p50, p75));
-        sleep();
 
+        compares++;
         if (arr[currentJ] > arr[currentJ + 1]) {
-            Dimensione tempDim = c1.getDimensione();
-            c1.setDimensione(c2.getDimensione());
-            c2.setDimensione(tempDim);
-
             long temp = arr[currentJ];
             arr[currentJ] = arr[currentJ + 1];
             arr[currentJ + 1] = temp;
 
+            scambio(c1, c2, SoundManager.NULL);
+
             update.run();
         }
 
-        c1.deselect();
-        c2.deselect();
-        update.run();
+        deselect(update, c1, c2);
 
         j.incrementAndGet();
         return true;
     }
 
     @Override
-    void actualSort(long[] arr) {
+    public void actualSort(long[] arr) {
         for (int i = 0; i < arr.length; i++) {
             for (int j = 0; j < arr.length - i - 1; j++) {
                 if (arr[j] > arr[j + 1]) {

@@ -18,8 +18,8 @@ public class Column extends AlgComponent{
     private final double arrSize;
     private boolean isSelected;
 
-    public final Color COLOR2 = new Color(50,150,50);
-    public Color COLOR1 = new Color(150,50,50);
+    public static final Color COLOR2 = new Color(50,150,50);
+    public static final Color COLOR1 = new Color(150,50,50);
 
     private final Dimensione testo;
 
@@ -56,9 +56,9 @@ public class Column extends AlgComponent{
         g.bordoRettangolo(dimensione, new Color(0,0,0,80));
         g.rettangolo(dimensione, color);
 
-        g.font(10.0 / (arrSize/2));
-
-
-        g.testo(testo, String.valueOf(val), color);
+        if(arrSize <= 50){
+            g.font(10.0 / (arrSize/2));
+            g.testo(testo, String.valueOf(val), color);
+        }
     }
 }
