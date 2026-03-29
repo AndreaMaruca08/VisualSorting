@@ -38,7 +38,7 @@ public class InsertionSort extends SortAlgorithm{
 
         var cols = board.getBoard().columns;
 
-        compares++;
+
         while (j > 0 && arr[j-1] > arr[j] ) {
             Column c1 = cols.get(j);
             Column c2 = cols.get(j-1);
@@ -49,6 +49,7 @@ public class InsertionSort extends SortAlgorithm{
             arr[j] = arr[j-1];
             arr[j-1] = temp;
             j--;
+            compares++;
         }
 
         ja.set(j);

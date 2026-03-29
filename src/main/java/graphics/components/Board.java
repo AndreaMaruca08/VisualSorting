@@ -18,11 +18,16 @@ import java.util.List;
 public class Board extends AlgComponent {
 
     public final List<Column> columns = new ArrayList<>();
-    @Setter
+
     private long[] arr;
 
     public Board(Dimensione dimensione, long[] arr) {
         super(dimensione);
+        this.arr = arr;
+        initColumns();
+    }
+
+    public void setArr(long[] arr) {
         this.arr = arr;
         initColumns();
     }

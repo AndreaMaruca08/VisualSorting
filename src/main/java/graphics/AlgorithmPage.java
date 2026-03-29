@@ -27,7 +27,7 @@ public class AlgorithmPage extends JPanel {
     public static final Dimensione dimensioneBoard = new Dimensione(5,10,90, 60);
     private static final Dimensione dimensioneText = new Dimensione(0,1,100, 5);
     private static final Dimensione dimensioneDimensioneArray = new Dimensione(0,10,100, 5);
-    private static final Dimensione dimensioneComandi = new Dimensione(0,1,30, 10);
+    private static final Dimensione dimensioneComandi = new Dimensione(0,1,50, 10);
     private static final Dimensione dimensioneAutore = new Dimensione(80,1,20, 10);
     private static final Dimensione dimensioneSwapsCompares = new Dimensione(0,15,20, 10);
     private static final Dimensione dimensioneDettagli = new Dimensione(0,70,50, 20);
@@ -61,12 +61,47 @@ public class AlgorithmPage extends JPanel {
         getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("UP"), "delay+");
         getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("DOWN"), "delay-");
         getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("F"), "ricrea");
+        getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("A"), "aumenta");
+        getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("D"), "diminuisci");
+        getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("M"), "pausa");
+
 
 
         getActionMap().put("spacePressed", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dettagli = algorithm.sort(arr, AlgorithmPage.this);
+                repaint();
+            }
+        });
+        getActionMap().put("pausa", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                algorithm.pause();
+                repaint();
+            }
+        });
+        getActionMap().put("aumenta", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(algorithm.getRunning().get())
+                    return;
+                arr = ArraysFactory.createArrayRandom(arr.length + 1, min, max);
+                board.setArr(arr);
+                board.deselect();
+                algorithm.reset();
+                repaint();
+            }
+        });
+        getActionMap().put("diminuisci", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(algorithm.getRunning().get() || arr.length <= 2)
+                    return;
+                arr = ArraysFactory.createArrayRandom(arr.length - 1, min, max);
+                board.setArr(arr);
+                board.deselect();
+                algorithm.reset();
                 repaint();
             }
         });
@@ -146,13 +181,13 @@ public class AlgorithmPage extends JPanel {
         gestoreGrafico.disegnaTestoWrap(dettagli, dimensioneDettagli, Color.WHITE);
         gestoreGrafico.disegnaTestoWrap("\nScambi: " + algorithm.getSwaps() + "\n\nConfronti: " + algorithm.getCompares(), dimensioneSwapsCompares, Color.WHITE);
         gestoreGrafico.disegnaTestoWrap(
-                "R : Mischia\n" +
-                "F : Ricrea array\n" +
-                "Spazio : avvio\n" +
+                "B : diminuisce array     A : aumenta array\n" +
+                "F : Ricrea array         R : mischia\n" +
+                "Spazio : avvio           M : pausa\n" +
                 "UP : aumento velocità\n" +
                 "DOWN : diminuzione velocità\n"+
                 "TICK : " + algorithm.getDelayMs()+
-                        "\n1, 2, 3, 4, 5, 6, 7, 8, 9 : cambia",
+                        "\n1, 2, 3, 4, 5, 6, 7, 8, 9 : cambia algoritmo",
                 dimensioneComandi, Color.WHITE
         );
         if(algorithm.algoToString().length() > 400)

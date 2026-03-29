@@ -6,6 +6,7 @@ public enum CreationStrategy {
         public void fill(long[] arr, long min, long max) {
             for(int i = 0; i < arr.length; i++)
                 arr[i] = min + i;
+            ArraysFactory.shuffle(arr);
         }
     },
     RANDOM{

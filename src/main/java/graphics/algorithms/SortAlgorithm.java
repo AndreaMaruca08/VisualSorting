@@ -25,22 +25,31 @@ public abstract class SortAlgorithm {
     protected final String description;
     protected final String complexity;
     protected boolean finished = false;
+    protected AtomicBoolean running = new AtomicBoolean(false);
     protected int delayMs;
     protected long swaps;
     protected long compares;
+    private final Timer timer;
 
     public SortAlgorithm(String name, String description, String complexity, int delayMs) {
         this.name = name;
         this.description = description;
         this.complexity = complexity;
         this.delayMs = delayMs;
+        timer = new Timer(delayMs, null);
         swaps = 0;
         compares = 0;
+    }
+
+    public void pause(){
+        running.set(false);
+        timer.stop();
     }
 
     public void addDelay(){
         delayMs += 5;
     }
+
     public void removeDelay(){
         delayMs -= 5;
         if(delayMs < 5) delayMs = 1;
@@ -65,10 +74,9 @@ public abstract class SortAlgorithm {
         long p50 = max / 2;
         long p85 = (long) (max * 0.85);
 
-        Timer timer = new Timer(delayMs, null);
-        AtomicBoolean running = new AtomicBoolean(true);
+        running = new AtomicBoolean(true);
 
-        timer.addActionListener(e -> {
+        timer.addActionListener(_ -> {
             finished = false;
             if (!running.get()) {
                 timer.stop();
