@@ -16,6 +16,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
+/**
+ * Pagina che mostra l'algoritmo in esecuzione
+ * @author Andrea Maruca
+ */
 public class AlgorithmPage extends JPanel {
     private final GestorePagine gestorePagine;
     @Getter
@@ -24,14 +28,14 @@ public class AlgorithmPage extends JPanel {
     private long[] arr;
     private final int min, max;
 
-    public static final Dimensione dimensioneBoard = new Dimensione(5,10,90, 60);
-    private static final Dimensione dimensioneText = new Dimensione(0,1,100, 5);
-    private static final Dimensione dimensioneDimensioneArray = new Dimensione(0,10,100, 5);
-    private static final Dimensione dimensioneComandi = new Dimensione(0,1,50, 10);
-    private static final Dimensione dimensioneAutore = new Dimensione(80,1,20, 10);
-    private static final Dimensione dimensioneSwapsCompares = new Dimensione(0,15,20, 10);
-    private static final Dimensione dimensioneDettagli = new Dimensione(0,70,50, 20);
-    private static final Dimensione dimensioneAlgoritmoString = new Dimensione(60,70,45, 35);
+    public static final Dimensione DIMENSIONE_BOARD = new Dimensione(5,10,90, 60);
+    private static final Dimensione DIMENSIONE_TEXT = new Dimensione(0,1,100, 5);
+    private static final Dimensione DIMENSIONE_DIMENSIONE_ARRAY = new Dimensione(0,10,100, 5);
+    private static final Dimensione DIMENSIONE_COMANDI = new Dimensione(0,1,50, 10);
+    private static final Dimensione DIMENSIONE_AUTORE = new Dimensione(80,1,20, 10);
+    private static final Dimensione DIMENSIONE_SWAPS_COMPARES = new Dimensione(0,15,20, 10);
+    private static final Dimensione DIMENSIONE_DETTAGLI = new Dimensione(0,70,50, 20);
+    private static final Dimensione DIMENSIONE_ALGORITMO_STRING = new Dimensione(60,70,45, 35);
 
     private String dettagli = "";
 
@@ -47,7 +51,7 @@ public class AlgorithmPage extends JPanel {
         this.arr = arr;
         this.min = min;
         this.max = max;
-        board = new Board(dimensioneBoard, arr);
+        board = new Board(DIMENSIONE_BOARD, arr);
 
         setKeys();
 
@@ -64,13 +68,27 @@ public class AlgorithmPage extends JPanel {
         getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("A"), "aumenta");
         getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("D"), "diminuisci");
         getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("M"), "pausa");
-
-
+        getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("O"), "aumentoVolume");
+        getInputMap(WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("P"), "downVolume");
 
         getActionMap().put("spacePressed", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dettagli = algorithm.sort(arr, AlgorithmPage.this);
+                repaint();
+            }
+        });
+        getActionMap().put("aumentoVolume", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SoundManager.aumentaVolume();
+                repaint();
+            }
+        });
+        getActionMap().put("downVolume", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SoundManager.diminuisciVolume();
                 repaint();
             }
         });
@@ -138,7 +156,7 @@ public class AlgorithmPage extends JPanel {
                     board.deselect();
 
                     SoundManager.shuffle();
-                    aggiorna(dimensioneBoard);
+                    aggiorna(DIMENSIONE_BOARD);
                 }
                 algorithm.reset();
             }
@@ -165,8 +183,8 @@ public class AlgorithmPage extends JPanel {
     @Override
     public void paintComponent(Graphics g){
         super.paintComponent(g);
-        GestoreGrafico gestoreGrafico = new GestoreGrafico(this, (Graphics2D) g);
-        gestoreGrafico.font(3);
+        GestoreGrafico ge = new GestoreGrafico(this, (Graphics2D) g);
+        ge.font(3);
 
         if(algorithm.isFinished()){
             board.select();
@@ -174,26 +192,29 @@ public class AlgorithmPage extends JPanel {
             SoundManager.fine();
         }
 
-        gestoreGrafico.testo(dimensioneText, algorithm.getName(), Color.WHITE);
-        gestoreGrafico.font(1);
-        gestoreGrafico.testo(dimensioneDimensioneArray, "Dimensione: " + arr.length, Color.WHITE);
-        gestoreGrafico.testo(dimensioneAutore, "Autore: Andrea Maruca", Color.WHITE);
-        gestoreGrafico.disegnaTestoWrap(dettagli, dimensioneDettagli, Color.WHITE);
-        gestoreGrafico.disegnaTestoWrap("\nScambi: " + algorithm.getSwaps() + "\n\nConfronti: " + algorithm.getCompares(), dimensioneSwapsCompares, Color.WHITE);
-        gestoreGrafico.disegnaTestoWrap(
-                "B : diminuisce array     A : aumenta array\n" +
-                "F : Ricrea array         R : mischia\n" +
-                "Spazio : avvio           M : pausa\n" +
-                "UP : aumento velocità\n" +
-                "DOWN : diminuzione velocità\n"+
-                "TICK : " + algorithm.getDelayMs()+
-                        "\n1, 2, 3, 4, 5, 6, 7, 8, 9 : cambia algoritmo",
-                dimensioneComandi, Color.WHITE
+        ge.testo(DIMENSIONE_TEXT, algorithm.getName(), Color.WHITE);
+        ge.font(1);
+        ge.testo(DIMENSIONE_DIMENSIONE_ARRAY, "Dimensione: " + arr.length, Color.WHITE);
+        ge.testo(DIMENSIONE_AUTORE, "Autore: Andrea Maruca", Color.WHITE);
+        ge.disegnaTestoWrap(dettagli, DIMENSIONE_DETTAGLI, Color.WHITE);
+        ge.disegnaTestoWrap("\nScambi: " + algorithm.getSwaps() + "\n\nConfronti: " + algorithm.getCompares(), DIMENSIONE_SWAPS_COMPARES, Color.WHITE);
+        ge.font(0.85);
+        ge.disegnaTestoWrap(
+                        """
+                        O : aumenta volume       P : diminuisci volume     VOLUME : %.2f
+                        A : aumenta array        D : diminuisce array 
+                        F : Ricrea array         R : mischia
+                        Spazio : avvio           M : pausa
+                        UP : - velocità          DOWN : + velocità
+                        TICK : %d (durata tick in ms)
+                        1, 2, 3, 4, 5, 6, 7, 8, 9 : cambia algoritmo
+                        """.formatted(SoundManager.getVolume(), algorithm.getDelayMs()),
+                DIMENSIONE_COMANDI, Color.WHITE
         );
         if(algorithm.algoToString().length() > 400)
-            gestoreGrafico.font(0.5);
-        gestoreGrafico.disegnaTestoWrap(algorithm.algoToString(), dimensioneAlgoritmoString, Color.WHITE);
+            ge.font(0.5);
+        ge.disegnaTestoWrap(algorithm.algoToString(), DIMENSIONE_ALGORITMO_STRING, Color.WHITE);
 
-        gestoreGrafico.draw(board);
+        ge.draw(board);
     }
 }

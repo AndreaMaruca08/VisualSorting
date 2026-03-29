@@ -81,15 +81,15 @@ public abstract class SortAlgorithm {
             if (!running.get()) {
                 timer.stop();
                 finished = true;
-                board.aggiorna(AlgorithmPage.dimensioneBoard);
+                board.aggiorna(AlgorithmPage.DIMENSIONE_BOARD);
                 return;
             }
 
-            if (!internSort(arr, p25, p50, p85, board, () -> board.aggiorna(AlgorithmPage.dimensioneBoard))) {
+            if (!internSort(arr, p25, p50, p85, board, () -> board.aggiorna(AlgorithmPage.DIMENSIONE_BOARD))) {
                 running.set(false);
                 timer.stop();
                 finished = true;
-                board.aggiorna(AlgorithmPage.dimensioneBoard);
+                board.aggiorna(AlgorithmPage.DIMENSIONE_BOARD);
             }
         });
 
@@ -160,10 +160,9 @@ public abstract class SortAlgorithm {
                 Algorithm: %s
                 Complexity: %s
                 %s
-                Dimensione array: %d
                 ------
                 Time nano: %f
                 Time ms: %f
-                Time s: %f""".formatted(name, complexity, description, arr.length, end, end / 1_000_000, end / 1_000_000_000);
+                Time s: %f""".formatted(name, complexity, description, end, end / 1_000_000, end / 1_000_000_000);
     }
 }

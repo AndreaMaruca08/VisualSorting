@@ -5,7 +5,7 @@ public enum CreationStrategy {
         @Override
         public void fill(long[] arr, long min, long max) {
             for(int i = 0; i < arr.length; i++)
-                arr[i] = min + i;
+                arr[i] = min + i* 2L;
             ArraysFactory.shuffle(arr);
         }
     },

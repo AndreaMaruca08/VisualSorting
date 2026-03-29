@@ -20,7 +20,7 @@ public class MergeSort extends SortAlgorithm {
     private static final class Frame {
         final int left;
         final int right;
-        int stage; // 0 = divide, 1 = merge
+        int stage;
 
         Frame(int left, int right, int stage) {
             this.left = left;
