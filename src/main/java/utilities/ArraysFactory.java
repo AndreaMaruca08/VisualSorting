@@ -19,13 +19,6 @@ public final class ArraysFactory {
         return arr;
     }
 
-    public static long findHighest(long[] arr) {
-        long max = arr[0];
-        for(long val : arr)
-            if(val > max) max = val;
-        return max;
-    }
-
     public static void shuffle(long[] arr) {
         for(int i = 0; i < arr.length; i++) {
             int randomIndex = (int) (Math.random() * arr.length);
@@ -53,5 +46,12 @@ public final class ArraysFactory {
         for(int i = 0; i < arr.length-1; i++)
             if(arr[i] > arr[i+1]) return false;
         return true;
+    }
+
+    public static long findHighest(long[] arr) {
+        long max = arr[0];
+        for(long val : arr)
+            if(val > max) max = val;
+        return max;
     }
 }

@@ -9,6 +9,7 @@ import lombok.Setter;
 import utilities.ArraysFactory;
 
 import javax.swing.*;
+import java.awt.event.ActionListener;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
@@ -69,12 +70,18 @@ public abstract class SortAlgorithm {
 
         String res = measureSort(arr.clone());
 
+        reset();
+
         long max = ArraysFactory.findHighest(arr);
         long p25 = max / 4;
         long p50 = max / 2;
         long p85 = (long) (max * 0.85);
 
         running = new AtomicBoolean(true);
+
+        for (ActionListener listener : timer.getActionListeners()) {
+            timer.removeActionListener(listener);
+        }
 
         timer.addActionListener(_ -> {
             finished = false;
@@ -154,7 +161,7 @@ public abstract class SortAlgorithm {
         double end = System.nanoTime() - start;
 
         if(!ArraysFactory.isSorted(arr))
-            throw new RuntimeException("Array non ordinato");
+            throw new ArrayNotSortedException(name, "Array non ordinato");
 
         return """
                 Algorithm: %s

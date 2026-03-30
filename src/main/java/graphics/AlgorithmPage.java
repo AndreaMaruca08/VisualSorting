@@ -1,9 +1,6 @@
 package graphics;
 
-import graphics.algorithms.BubbleSort;
-import graphics.algorithms.InsertionSort;
-import graphics.algorithms.MergeSort;
-import graphics.algorithms.SortAlgorithm;
+import graphics.algorithms.*;
 import graphics.components.Board;
 import graphics.utilities.Dimensione;
 import graphics.utilities.GestoreGrafico;
@@ -74,7 +71,11 @@ public class AlgorithmPage extends JPanel {
         getActionMap().put("spacePressed", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dettagli = algorithm.sort(arr, AlgorithmPage.this);
+                try {
+                    dettagli = algorithm.sort(arr, AlgorithmPage.this);
+                }catch (ArrayNotSortedException ex){
+                    JOptionPane.showMessageDialog(AlgorithmPage.this, ex.getMessage(), ex.algoName, JOptionPane.ERROR_MESSAGE);
+                }
                 repaint();
             }
         });
@@ -144,17 +145,16 @@ public class AlgorithmPage extends JPanel {
                 board.setArr(arr);
                 board.deselect();
                 algorithm.reset();
-                repaint();
+                aggiorna(DIMENSIONE_BOARD);
             }
         });
 
         getActionMap().put("reset", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                board.deselect();
                 for(int i = 0; i < 10; i++){
                     ArraysFactory.shuffle(arr);
-                    board.deselect();
-
                     SoundManager.shuffle();
                     aggiorna(DIMENSIONE_BOARD);
                 }
