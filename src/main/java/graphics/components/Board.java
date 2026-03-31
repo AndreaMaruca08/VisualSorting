@@ -1,11 +1,8 @@
 package graphics.components;
 
-import graphics.utilities.Dimensione;
-import graphics.utilities.GestoreGrafico;
-import lombok.Setter;
-import utilities.ArraysFactory;
+import core.utilities.Dimensione;
+import core.utilities.GestoreGrafico;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 

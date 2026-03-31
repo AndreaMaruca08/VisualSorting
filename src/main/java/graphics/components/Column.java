@@ -1,7 +1,7 @@
 package graphics.components;
 
-import graphics.utilities.Dimensione;
-import graphics.utilities.GestoreGrafico;
+import core.utilities.Dimensione;
+import core.utilities.GestoreGrafico;
 import lombok.Getter;
 
 import java.awt.*;
@@ -16,10 +16,7 @@ import java.awt.*;
 public class Column extends AlgComponent{
     private long val;
     private final double arrSize;
-    private boolean isSelected;
-
-    public static final Color COLOR2 = new Color(50,150,50);
-    public static final Color COLOR1 = new Color(150,50,50);
+    private ColumnState state;
 
     private final Dimensione testo;
 
@@ -32,7 +29,7 @@ public class Column extends AlgComponent{
                 dimensione.width(),
                 1
         );
-        isSelected = false;
+        state = ColumnState.NOT_SELECTED;
         this.arrSize = arrSize;
     }
 
@@ -43,15 +40,18 @@ public class Column extends AlgComponent{
     }
 
     public void select(){
-        isSelected = true;
+        state = ColumnState.SELECTED;
+    }
+    public void specialSelect(){
+        state = ColumnState.SPECIAL_SELECT;
     }
     public void deselect(){
-        isSelected = false;
+        state = ColumnState.NOT_SELECTED;
     }
 
     @Override
     public void draw(GestoreGrafico g) {
-        Color color = isSelected ? COLOR1 : COLOR2;
+        Color color = state.colore;
         g.spessoreDisegno(5);
         g.bordoRettangolo(dimensione, new Color(0,0,0,80));
         g.rettangolo(dimensione, color);

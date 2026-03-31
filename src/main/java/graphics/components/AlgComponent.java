@@ -1,7 +1,7 @@
 package graphics.components;
 
-import graphics.utilities.Dimensione;
-import graphics.utilities.GestoreGrafico;
+import core.utilities.Dimensione;
+import core.utilities.GestoreGrafico;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

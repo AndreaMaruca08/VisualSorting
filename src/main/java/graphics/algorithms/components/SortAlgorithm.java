@@ -1,9 +1,9 @@
-package graphics.algorithms;
+package graphics.algorithms.components;
 
 import graphics.AlgorithmPage;
+import graphics.components.AlgoSoundManager;
 import graphics.components.Column;
-import graphics.utilities.Dimensione;
-import graphics.utilities.SoundManager;
+import core.utilities.Dimensione;
 import lombok.Getter;
 import lombok.Setter;
 import utilities.ArraysFactory;
@@ -11,6 +11,7 @@ import utilities.ArraysFactory;
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Consumer;
 
 /**
  * <h3>Abstract base class for sorting algorithms.</h3>
@@ -58,7 +59,7 @@ public abstract class SortAlgorithm {
 
     protected void sleep(){
         try {
-            Thread.sleep(delayMs * 2L);
+            Thread.sleep(delayMs);
         }catch (Exception e){
             IO.println(e.getMessage());
         }
@@ -92,7 +93,12 @@ public abstract class SortAlgorithm {
                 return;
             }
 
-            if (!internSort(arr, p25, p50, p85, board, () -> board.aggiorna(AlgorithmPage.DIMENSIONE_BOARD))) {
+            if (!internSort(arr, p25, p50, p85, board, (aggiornaCode) -> {
+                board.aggiorna(AlgorithmPage.DIMENSIONE_BOARD);
+                if (aggiornaCode) {
+                    board.aggiorna(AlgorithmPage.DIMENSIONE_ALGORITMO_STRING);
+                }
+            })) {
                 running.set(false);
                 timer.stop();
                 finished = true;
@@ -113,9 +119,9 @@ public abstract class SortAlgorithm {
 
     public abstract void internalReset();
 
-    protected abstract boolean internSort(long[] arr, long p25, long p50, long p75, AlgorithmPage board, Runnable update);
+    protected abstract boolean internSort(long[] arr, long p25, long p50, long p85, AlgorithmPage board, Consumer<Boolean> update);
 
-    protected final void scambioCompleto(Column c1, Column c2, Runnable update, int suono){
+    protected final void scambioCompleto(Column c1, Column c2, Consumer<Boolean> update, int suono){
         select(update, c1, c2);
         scambio(c1, c2, suono);
         deselect(update, c1, c2);
@@ -126,22 +132,48 @@ public abstract class SortAlgorithm {
         c1.setDimensione(c2.getDimensione());
         c2.setDimensione(tempD);
         swaps++;
-        SoundManager.scambio(suono);
+        AlgoSoundManager.scambio(suono);
     }
 
-    protected final void select(Runnable update, Column... cols){
+    protected final void selectAndDeselectLines(Consumer<Boolean> update, VisualAlgorithmCode code, int... lines){
+        for(int line : lines){
+            selectCodeLines(update, code, line);
+            sleep();
+            deselectCodeLines(update, code, line);
+        }
+    }
+
+    protected final void selectCodeLines(Consumer<Boolean> update, VisualAlgorithmCode code, int... lines){
+        code.select(lines);
+        update.accept(true);
+    }
+
+    protected final void deselectCodeLines(Consumer<Boolean> update, VisualAlgorithmCode code, int... lines){
+        code.deselect(lines);
+        update.accept(true);
+    }
+
+    protected final void select(Consumer<Boolean> update, Column... cols){
         for(Column col : cols) {
             col.select();
         }
-        update.run();
+        update.accept(false);
         sleep();
     }
 
-    protected final void deselect(Runnable update, Column... cols){
+    protected final void specialSelect(Consumer<Boolean> update, Column... cols){
+        for(Column col : cols) {
+            col.specialSelect();
+        }
+        update.accept(false);
+        sleep();
+    }
+
+    protected final void deselect(Consumer<Boolean> update, Column... cols){
         for(Column col : cols) {
             col.deselect();
         }
-        update.run();
+        update.accept(false);
         sleep();
     }
 
@@ -152,6 +184,17 @@ public abstract class SortAlgorithm {
     public abstract void actualSort(long[] arr);
 
     public abstract String algoToString();
+
+    public VisualAlgorithmCode algoToVisual(Dimensione dim){
+        String code = algoToString();
+        String[] codeLines = code.split("\n");
+        CodeLine[] lines = new CodeLine[codeLines.length];
+
+        for(int i = 0; i < codeLines.length; i++){
+            lines[i] = new CodeLine(codeLines[i]);
+        }
+        return new VisualAlgorithmCode(dim, lines);
+    }
 
     private String measureSort(long[] arr){
         double start = System.nanoTime();

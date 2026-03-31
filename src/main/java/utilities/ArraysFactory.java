@@ -25,12 +25,6 @@ public final class ArraysFactory {
             long temp = arr[i];
             arr[i] = arr[randomIndex];
             arr[randomIndex] = temp;
-            if(i % 2 == 0)
-                try {
-                    Thread.sleep(2);
-                }catch (Exception e) {
-                    System.out.println(e.getMessage());
-                }
         }
     }
 

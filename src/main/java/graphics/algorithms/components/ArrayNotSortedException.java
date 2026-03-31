@@ -1,4 +1,4 @@
-package graphics.algorithms;
+package graphics.algorithms.components;
 
 public class ArrayNotSortedException extends RuntimeException {
     public String algoName;

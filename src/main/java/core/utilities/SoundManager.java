@@ -1,4 +1,4 @@
-package graphics.utilities;
+package core.utilities;
 
 import lombok.Getter;
 
@@ -10,10 +10,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 /**
  * <h3>Utility class for managing sound effects in the application.</h3>
  */
-public final class SoundManager {
-    private SoundManager(){}
+public class SoundManager {
+    protected SoundManager(){}
 
-    public static final int NULL = 0;
+    private static float min = 0f;
+    private static float max = 1f;
+
+    public static final int NULL = -1111;
     private static final int MAX_CLIPS = 15;
 
     @Getter
@@ -23,18 +26,23 @@ public final class SoundManager {
     private static final boolean[] BUSY = new boolean[MAX_CLIPS];
     private static final Object LOCK = new Object();
 
+    protected static void setLimits(float min, float max){
+        SoundManager.min = min;
+        SoundManager.max = max;
+    }
+
     public static void aumentaVolume() {
-        if(volume < 1f)
+        if(volume < max)
             volume += 0.1f;
         else
-            volume = 1f;
+            volume = max;
     }
 
     public static void diminuisciVolume() {
-        if(volume > 0.4f)
+        if(volume > min)
             volume -= 0.1f;
         else
-            volume = 0.4f;
+            volume = min;
     }
 
     public static void play(String nomeSuono){
@@ -95,20 +103,4 @@ public final class SoundManager {
             BUSY[index] = false;
         }
     }
-
-    public static void scambio(int num){
-        if(num == NULL)
-            return;
-        String nomeSuono = "scambio" + num + ".wav";
-        play(nomeSuono);
-    }
-
-    public static void fine(){
-        play("complete.wav");
-    }
-
-    public static void shuffle(){
-        play("shuffle.wav");
-    }
-
 }

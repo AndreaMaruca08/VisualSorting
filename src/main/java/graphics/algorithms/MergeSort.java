@@ -1,8 +1,12 @@
 package graphics.algorithms;
 
 import graphics.AlgorithmPage;
+import graphics.algorithms.components.SortAlgorithm;
 import graphics.components.Column;
 import utilities.ArraysFactory;
+
+import java.util.ArrayDeque;
+import java.util.function.Consumer;
 
 public class MergeSort extends SortAlgorithm {
 
@@ -29,7 +33,7 @@ public class MergeSort extends SortAlgorithm {
         }
     }
 
-    private final java.util.ArrayDeque<Frame> stack = new java.util.ArrayDeque<>();
+    private final ArrayDeque<Frame> stack = new ArrayDeque<>();
 
     private int mergeLeft = -1;
     private int mergeMid = -1;
@@ -59,7 +63,7 @@ public class MergeSort extends SortAlgorithm {
     }
 
     @Override
-    protected boolean internSort(long[] arr, long p25, long p50, long p75, AlgorithmPage board, Runnable update) {
+    protected boolean internSort(long[] arr, long p25, long p50, long p75, AlgorithmPage board, Consumer<Boolean> update) {
         if (arr.length < 2) return false;
 
         if (stack.isEmpty() && !merging && !copyingBack) {

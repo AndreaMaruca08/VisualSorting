@@ -1,11 +1,13 @@
 package graphics.algorithms;
 
 import graphics.AlgorithmPage;
+import graphics.algorithms.components.SortAlgorithm;
 import graphics.components.Column;
 
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Consumer;
 
-public class InsertionSort extends SortAlgorithm{
+public class InsertionSort extends SortAlgorithm {
 
     public InsertionSort(int delayMs) {
         super(
@@ -28,8 +30,9 @@ public class InsertionSort extends SortAlgorithm{
     }
 
     @Override
-    protected boolean internSort(long[] arr, long p25, long p50, long p75, AlgorithmPage board, Runnable update) {
+    protected boolean internSort(long[] arr, long p25, long p50, long p85, AlgorithmPage board, Consumer<Boolean> update) {
         int j = i.get();
+        var code = board.getCode();
 
         compares++;
         if(j >= arr.length) return false;
@@ -43,18 +46,24 @@ public class InsertionSort extends SortAlgorithm{
             Column c1 = cols.get(j);
             Column c2 = cols.get(j-1);
 
-            scambioCompleto(c1, c2, update, getSuono(arr[j], p25, p50, p75));
+            scambioCompleto(c1, c2, update, getSuono(arr[j], p25, p50, p85));
 
+            selectAndDeselectLines(update, code, 2);
             long temp = arr[j];
+            selectAndDeselectLines(update, code, 3);
             arr[j] = arr[j-1];
+            selectAndDeselectLines(update, code, 4);
             arr[j-1] = temp;
+            selectAndDeselectLines(update, code, 5);
             j--;
+            selectAndDeselectLines(update, code, 6);
             compares++;
         }
 
         ja.set(j);
 
         i.incrementAndGet();
+        selectAndDeselectLines(update, code, 0);
 
         return true;
     }

@@ -1,5 +1,5 @@
 
-package graphics.utilities;
+package core.utilities;
 
 import java.awt.*;
 

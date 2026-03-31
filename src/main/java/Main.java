@@ -1,5 +1,5 @@
 import graphics.AlgorithmPage;
-import graphics.utilities.GestorePagine;
+import core.utilities.GestorePagine;
 import utilities.ArraysFactory;
 
 import javax.swing.*;

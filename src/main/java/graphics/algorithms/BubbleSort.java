@@ -1,10 +1,12 @@
 package graphics.algorithms;
 
 import graphics.AlgorithmPage;
+import graphics.algorithms.components.SortAlgorithm;
+import graphics.components.AlgoSoundManager;
 import graphics.components.Column;
-import graphics.utilities.SoundManager;
 
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Consumer;
 
 /**
  * <h3>Represents the Bubble Sort algorithm.</h3>
@@ -36,8 +38,9 @@ public class BubbleSort extends SortAlgorithm {
     }
 
     @Override
-    protected boolean internSort(long[] arr, long p25, long p50, long p75, AlgorithmPage board, Runnable update) {
+    protected boolean internSort(long[] arr, long p25, long p50, long p75, AlgorithmPage board, Consumer<Boolean> update) {
         var cols = board.getBoard().columns;
+        var code = board.getCode();
 
         if (i.get() >= arr.length - 1) {
             return false;
@@ -46,6 +49,7 @@ public class BubbleSort extends SortAlgorithm {
         if (j.get() >= arr.length - i.get() - 1) {
             j.set(0);
             i.incrementAndGet();
+            selectAndDeselectLines(update, code, 0);
             return i.get() < arr.length - 1;
         }
 
@@ -55,22 +59,27 @@ public class BubbleSort extends SortAlgorithm {
         Column c2 = cols.get(currentJ + 1);
 
         select(update, c1, c2);
-        SoundManager.scambio(getSuono(arr[currentJ], p25, p50, p75));
+        selectCodeLines(update, code, 2);
+        AlgoSoundManager.scambio(getSuono(arr[currentJ], p25, p50, p75));
 
         compares++;
         if (arr[currentJ] > arr[currentJ + 1]) {
+            deselectCodeLines(update, code, 2);
             long temp = arr[currentJ];
+            selectAndDeselectLines(update, code, 3);
             arr[currentJ] = arr[currentJ + 1];
+            selectAndDeselectLines(update, code, 4);
             arr[currentJ + 1] = temp;
+            selectAndDeselectLines(update, code, 5);
+            scambio(c1, c2, AlgoSoundManager.NULL);
 
-            scambio(c1, c2, SoundManager.NULL);
-
-            update.run();
+            update.accept(false);
         }
 
         deselect(update, c1, c2);
 
         j.incrementAndGet();
+        selectAndDeselectLines(update, code, 1);
         return true;
     }
 

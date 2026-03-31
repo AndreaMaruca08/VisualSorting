@@ -1,4 +1,4 @@
-package graphics.utilities;
+package core.utilities;
 
 import graphics.components.AlgComponent;
 import lombok.extern.java.Log;
@@ -213,8 +213,10 @@ public record GestoreGrafico(
      * @param colore colore del rettangolo
      */
     public void rettangolo(Dimensione dim, Color colore) {
+        var old = g2().getColor();
         g2().setColor(colore);
         rect(dim, true);
+        g2().setColor(old);
     }
 
     /**

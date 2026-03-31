@@ -1,4 +1,6 @@
-package graphics.utilities;
+package core.utilities;
+
+import core.Pagina;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,7 +30,7 @@ public class GestorePagine extends CardLayout {
      * @param nomePagina nome della pagina
      * @param pagina pagina da aggiungere
      */
-    public void addPagina(String nomePagina, JComponent pagina) {
+    public void addPagina(String nomePagina, Pagina pagina) {
         if(Arrays.stream(container.getComponents()).toList().contains(pagina))
             return;
         container.add(pagina, nomePagina);
