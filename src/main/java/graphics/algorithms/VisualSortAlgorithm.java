@@ -80,11 +80,12 @@ public abstract class VisualSortAlgorithm extends SortAlgorithm {
 
     public void addDelay(){
         delayMs += 5;
+        if(delayMs == 6) delayMs = 5;
     }
 
     public void removeDelay(){
         delayMs -= 5;
-        if(delayMs < 5) delayMs = 5;
+        if(delayMs < 5) delayMs = 1;
     }
 
     public String sort(long[] arr, AlgorithmPage board) {

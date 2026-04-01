@@ -46,7 +46,8 @@ public class AlgorithmPage extends Pagina {
             new CockTailShakerVisualSort(20),
             new MergeVisualSort(20),
             new QuickVisualSort(20),
-            new BogoVisualSort(5)
+            new BogoVisualSort(5),
+            new BitonicVisualSort(20)
     };
 
     public AlgorithmPage(GestorePagine gestorePagine, VisualSortAlgorithm algorithm, long[] arr, int min, int max) {

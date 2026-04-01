@@ -124,7 +124,7 @@ public class MergeVisualSort extends VisualSortAlgorithm {
 
             Column col = cols.get(k);
             Dimensione originalDim = col.getDimensione();
-            col.setDimensione(originalDim.ingrandisci(30, 30));
+            col.setDimensione(originalDim.ingrandisci(30, 15));
 
             select(update, col);
             update.accept(new UpdateInfo(col));
