@@ -147,26 +147,31 @@ public abstract class SortAlgorithm {
 
     protected abstract boolean internSort(long[] arr, long p25, long p50, long p85, AlgorithmPage board, Consumer<UpdateInfo> update);
 
-    protected final void scambioCompleto(Column c1, Column c2, Consumer<UpdateInfo> update, int suono){
-        // Salva le vecchie dimensioni prima dello scambio
+    protected final void scambioCompleto(Column c1, Column c2, Consumer<UpdateInfo> update, int suono) {
         Dimensione oldDim1 = c1.getDimensione();
         Dimensione oldDim2 = c2.getDimensione();
-        
+
         select(update, c1, c2);
-        scambio(c1, c2, suono);
-        
+        scambio(c1, c2, oldDim1, oldDim2, suono);
+
         // Aggiorna sia le vecchie che le nuove posizioni
         update.accept(new UpdateInfo(oldDim1, oldDim2, c1, c2));
         sleep();
-        
-        for(Column col : new Column[]{c1, c2}) {
+
+        for (Column col : new Column[]{c1, c2}) {
             col.deselect();
         }
         update.accept(new UpdateInfo(oldDim1, oldDim2, c1, c2));
         sleep();
     }
 
-    protected final void scambio(Column c1, Column c2, int suono){
+    protected final void scambio(Column c1, Column c2, int suono) {
+        Dimensione oldDim1 = c1.getDimensione();
+        Dimensione oldDim2 = c2.getDimensione();
+        scambio(c1, c2, oldDim1, oldDim2, suono);
+    }
+
+    protected final void scambio(Column c1, Column c2, Dimensione oldDim1, Dimensione oldDim2, int suono) {
         Dimensione tempD = c1.getDimensione();
         c1.setDimensione(c2.getDimensione());
         c2.setDimensione(tempD);

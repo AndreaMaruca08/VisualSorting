@@ -43,6 +43,7 @@ public class AlgorithmPage extends Pagina {
     public static final SortAlgorithm[] ALGORITHMS = {
             new InsertionSort(20),
             new BubbleSort(20),
+            new CockTailShakerSort(20),
             new MergeSort(20),
             new QuickSort(20),
             new BogoSort(5)
