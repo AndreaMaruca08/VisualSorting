@@ -1,17 +1,16 @@
 package graphics.algorithms;
 
 import graphics.AlgorithmPage;
-import graphics.algorithms.components.SortAlgorithm;
 import graphics.components.AlgoSoundManager;
 import graphics.components.Column;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 
-public class CockTailShakerSort extends SortAlgorithm {
-    public CockTailShakerSort(int delayMs) {
+public class CockTailShakerVisualSort extends VisualSortAlgorithm {
+    public CockTailShakerVisualSort(int delayMs) {
         super(
-                "Cocktail Shaker Sort",
+                "CocktailShaker Sort",
                 "A bidirectional bubble sort algorithm",
                 "O(n^2)",
                 delayMs
@@ -96,7 +95,7 @@ public class CockTailShakerSort extends SortAlgorithm {
                 selectAndDeselectLines(update, code, 34);
                 swap(arr, currentJ, currentJ - 1);
                 selectAndDeselectLines(update, code, 35);
-                scambio(c1, c2, AlgoSoundManager.NULL);
+                scambio(c1, c2);
                 selectAndDeselectLines(update, code, 36);
                 update.accept(new UpdateInfo(c1, c2));
                 swappedInPass = true;

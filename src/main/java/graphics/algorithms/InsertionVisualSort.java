@@ -1,15 +1,14 @@
 package graphics.algorithms;
 
 import graphics.AlgorithmPage;
-import graphics.algorithms.components.SortAlgorithm;
 import graphics.components.Column;
 
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 
-public class InsertionSort extends SortAlgorithm {
+public class InsertionVisualSort extends VisualSortAlgorithm {
 
-    public InsertionSort(int delayMs) {
+    public InsertionVisualSort(int delayMs) {
         super(
                 "Insertion Sort",
                 "Algoritmo che costruisce l’array ordinato inserendo ogni " +

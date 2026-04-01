@@ -1,7 +1,6 @@
 package graphics.algorithms;
 
 import graphics.AlgorithmPage;
-import graphics.algorithms.components.SortAlgorithm;
 import graphics.components.AlgoSoundManager;
 import graphics.components.Column;
 
@@ -10,15 +9,15 @@ import java.util.function.Consumer;
 
 /**
  * <h3>Represents the Bubble Sort algorithm.</h3>
- * Implements the SortAlgorithm abstract class and provides the logic for sorting arrays using the Bubble Sort algorithm.
+ * Implements the VisualSortAlgorithm abstract class and provides the logic for sorting arrays using the Bubble Sort algorithm.
  *
  * @author Andrea Maruca
  */
-public class BubbleSort extends SortAlgorithm {
+public class BubbleVisualSort extends VisualSortAlgorithm {
 
-    public BubbleSort(int delayMs) {
+    public BubbleVisualSort(int delayMs) {
         super(
-                "Bubble sort",
+                "Bubble Sort",
                 "Algoritmo di ordinamento semplice basato su confronti " +
                         "ripetuti tra elementi adiacenti. Scambia due elementi " +
                         "se sono nell’ordine sbagliato, “facendo salire” progressivamente" +
@@ -71,7 +70,7 @@ public class BubbleSort extends SortAlgorithm {
             selectAndDeselectLines(update, code, 4);
             arr[currentJ + 1] = temp;
             selectAndDeselectLines(update, code, 5);
-            scambio(c1, c2, AlgoSoundManager.NULL);
+            scambio(c1, c2);
 
             update.accept(new UpdateInfo(c1, c2));
         }

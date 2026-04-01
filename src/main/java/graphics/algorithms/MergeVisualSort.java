@@ -1,16 +1,17 @@
 package graphics.algorithms;
 
+import core.utilities.Dimensione;
 import graphics.AlgorithmPage;
-import graphics.algorithms.components.SortAlgorithm;
+import graphics.components.AlgoSoundManager;
 import graphics.components.Column;
 import utilities.ArraysFactory;
 
 import java.util.ArrayDeque;
 import java.util.function.Consumer;
 
-public class MergeSort extends SortAlgorithm {
+public class MergeVisualSort extends VisualSortAlgorithm {
 
-    public MergeSort(int delayMs) {
+    public MergeVisualSort(int delayMs) {
         super(
                 "Merge Sort",
                 "Algoritmo di ordinamento basato sul paradigma divide et impera:\n" +
@@ -79,14 +80,14 @@ public class MergeSort extends SortAlgorithm {
                 compares++;
                 Column c1 = cols.get(i);
                 Column c2 = cols.get(j);
+                AlgoSoundManager.scambio(getSuono(arr[i], p25, p50, p75));
 
                 if (arr[i] <= arr[j]) {
-                    scambioCompleto(c2, c1, update, getSuono(arr[i], p25, p50, p75));
                     temp[tempIndex++] = arr[i++];
                 } else {
-                    scambioCompleto(c2, c1, update, getSuono(arr[j], p25, p50, p75));
                     temp[tempIndex++] = arr[j++];
                 }
+                update.accept(new UpdateInfo(c1, c2));
                 return true;
             }
 
@@ -120,6 +121,17 @@ public class MergeSort extends SortAlgorithm {
 
             long value = temp[tempIndex++];
             arr[k] = value;
+
+            Column col = cols.get(k);
+            Dimensione originalDim = col.getDimensione();
+            col.setDimensione(originalDim.ingrandisci(30, 30));
+
+            select(update, col);
+            update.accept(new UpdateInfo(col));
+
+            col.setDimensione(originalDim);
+            deselect(update, col);
+            update.accept(new UpdateInfo(col));
 
             k++;
             return true;

@@ -32,8 +32,11 @@ public abstract class Pagina extends JPanel {
         });
     }
 
-    public void aggiorna(Dimensione d){
+    public void aggiornaImmediatamente(Dimensione d){
         paintImmediately(d.toRectangle(this));
+    }
+    public void aggiorna(Dimensione d){
+        repaint(d.toRectangle(this));
     }
 
     protected abstract void draw(Grafica grafica);

@@ -49,6 +49,10 @@ public class Column extends AlgComponent{
         state = ColumnState.NOT_SELECTED;
     }
 
+    public Column clone(){
+        return new Column(val, arrSize, dimensione);
+    }
+
     @Override
     public void draw(Grafica g) {
         Color color = state.colore;

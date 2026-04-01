@@ -1,17 +1,16 @@
 package graphics.algorithms;
 
 import graphics.AlgorithmPage;
-import graphics.algorithms.components.SortAlgorithm;
 
 import java.util.function.Consumer;
 
 import static utilities.ArraysFactory.*;
 
-public class BogoSort extends SortAlgorithm {
+public class BogoVisualSort extends VisualSortAlgorithm {
 
-    public BogoSort(int delayMs) {
+    public BogoVisualSort(int delayMs) {
         super(
-                "BogoSort",
+                "Bogo Sort",
                 "Mischia l'array fino a che non è in ordine",
                 "0(1) - 0(∞)",
                 delayMs

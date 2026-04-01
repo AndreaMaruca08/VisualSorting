@@ -1,17 +1,16 @@
 package graphics.algorithms;
 
 import graphics.AlgorithmPage;
-import graphics.algorithms.components.SortAlgorithm;
 import graphics.components.Column;
 
 import java.util.ArrayDeque;
 import java.util.HashMap;
 import java.util.function.Consumer;
 
-public class QuickSort extends SortAlgorithm {
-    public QuickSort(int delayMs) {
+public class QuickVisualSort extends VisualSortAlgorithm {
+    public QuickVisualSort(int delayMs) {
         super(
-                "QuickSort",
+                "Quick Sort",
                 """
                         Algoritmo di ordinamento basato su divide et impera.
                         Seleziona un elemento detto pivot e riorganizza l’array in modo che:

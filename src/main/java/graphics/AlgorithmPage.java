@@ -2,7 +2,7 @@ package graphics;
 
 import graphics.algorithms.*;
 import graphics.algorithms.components.ArrayNotSortedException;
-import graphics.algorithms.components.SortAlgorithm;
+import graphics.algorithms.VisualSortAlgorithm;
 import graphics.algorithms.components.VisualAlgorithmCode;
 import graphics.components.AlgoSoundManager;
 import graphics.components.Board;
@@ -23,7 +23,7 @@ import java.awt.*;
 public class AlgorithmPage extends Pagina {
     @Getter
     private final Board board;
-    private final SortAlgorithm algorithm;
+    private final VisualSortAlgorithm algorithm;
     @Getter
     private final VisualAlgorithmCode code;
     private long[] arr;
@@ -40,16 +40,16 @@ public class AlgorithmPage extends Pagina {
 
     private String dettagli = "";
 
-    public static final SortAlgorithm[] ALGORITHMS = {
-            new InsertionSort(20),
-            new BubbleSort(20),
-            new CockTailShakerSort(20),
-            new MergeSort(20),
-            new QuickSort(20),
-            new BogoSort(5)
+    public static final VisualSortAlgorithm[] ALGORITHMS = {
+            new InsertionVisualSort(20),
+            new BubbleVisualSort(20),
+            new CockTailShakerVisualSort(20),
+            new MergeVisualSort(20),
+            new QuickVisualSort(20),
+            new BogoVisualSort(5)
     };
 
-    public AlgorithmPage(GestorePagine gestorePagine, SortAlgorithm algorithm, long[] arr, int min, int max) {
+    public AlgorithmPage(GestorePagine gestorePagine, VisualSortAlgorithm algorithm, long[] arr, int min, int max) {
         super(gestorePagine);
         this.algorithm = algorithm;
         this.arr = arr;
@@ -83,16 +83,24 @@ public class AlgorithmPage extends Pagina {
             algorithm.reset();
         }, "R");
 
-        creaComando("delay+", algorithm::addDelay, "UP");
+        creaComando("delay+", () -> {
+            if(algorithm.getRunning().get())
+                return;
+            algorithm.addDelay();
+        }, "UP");
 
-        creaComando("delay-", algorithm::removeDelay, "DOWN");
+        creaComando("delay-", () -> {
+            if(algorithm.getRunning().get())
+                return;
+            algorithm.removeDelay();
+        }, "DOWN");
 
         creaComando("ricrea", () -> {
             arr = ArraysFactory.createArrayRandom(arr.length, min, max);
             board.setArr(arr);
             board.deselect();
             algorithm.reset();
-            aggiorna(DIMENSIONE_BOARD);
+            aggiornaImmediatamente(DIMENSIONE_BOARD);
         }, "F");
 
         creaComando("aumenta", () -> {
