@@ -25,19 +25,19 @@ public record Dimensione(
      */
     public Rectangle toRectangle(Component component) {
         return new Rectangle(
-                GestoreGrafico.getX(x, component),
-                GestoreGrafico.getY(y, component),
-                GestoreGrafico.getX(width, component),
-                GestoreGrafico.getY(height, component)
+                Grafica.getX(x, component),
+                Grafica.getY(y, component),
+                Grafica.getX(width, component),
+                Grafica.getY(height, component)
         );
     }
     public Rectangle toRectangleSmaller(Component component) {
         int dim = 2;
         return new Rectangle(
-                GestoreGrafico.getX(x + dim, component),
-                GestoreGrafico.getY(y + dim, component),
-                GestoreGrafico.getX(width - dim*2, component),
-                GestoreGrafico.getY(height - dim*2, component)
+                Grafica.getX(x + dim, component),
+                Grafica.getY(y + dim, component),
+                Grafica.getX(width - dim*2, component),
+                Grafica.getY(height - dim*2, component)
         );
     }
 

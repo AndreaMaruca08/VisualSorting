@@ -38,7 +38,7 @@ public class BubbleSort extends SortAlgorithm {
     }
 
     @Override
-    protected boolean internSort(long[] arr, long p25, long p50, long p75, AlgorithmPage board, Consumer<Boolean> update) {
+    protected boolean internSort(long[] arr, long p25, long p50, long p75, AlgorithmPage board, Consumer<UpdateInfo> update) {
         var cols = board.getBoard().columns;
         var code = board.getCode();
 
@@ -73,7 +73,7 @@ public class BubbleSort extends SortAlgorithm {
             selectAndDeselectLines(update, code, 5);
             scambio(c1, c2, AlgoSoundManager.NULL);
 
-            update.accept(false);
+            update.accept(new UpdateInfo(c1, c2));
         }
 
         deselect(update, c1, c2);

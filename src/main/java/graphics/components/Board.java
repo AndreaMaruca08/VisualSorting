@@ -1,7 +1,7 @@
 package graphics.components;
 
 import core.utilities.Dimensione;
-import core.utilities.GestoreGrafico;
+import core.utilities.Grafica;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,7 +55,7 @@ public class Board extends AlgComponent {
     }
 
     @Override
-    public void draw(GestoreGrafico gestoreGrafico) {
+    public void draw(Grafica grafica) {
         double colW = dimensione.width() / arr.length;
         double usableHeight = dimensione.height() - (dimensione.height() / 7);
         double gap = 0.2;
@@ -71,7 +71,7 @@ public class Board extends AlgComponent {
             col.setVal(l);
             col.setDimensione(new Dimensione(x, y, colW - gap, barHeight));
 
-            gestoreGrafico.draw(col);
+            grafica.draw(col);
         }
     }
 }

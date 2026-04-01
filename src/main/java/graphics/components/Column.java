@@ -1,7 +1,7 @@
 package graphics.components;
 
 import core.utilities.Dimensione;
-import core.utilities.GestoreGrafico;
+import core.utilities.Grafica;
 import lombok.Getter;
 
 import java.awt.*;
@@ -50,7 +50,7 @@ public class Column extends AlgComponent{
     }
 
     @Override
-    public void draw(GestoreGrafico g) {
+    public void draw(Grafica g) {
         Color color = state.colore;
         g.spessoreDisegno(5);
         g.bordoRettangolo(dimensione, new Color(0,0,0,80));

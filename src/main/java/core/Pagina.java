@@ -1,7 +1,7 @@
 package core;
 
 import core.utilities.Dimensione;
-import core.utilities.GestoreGrafico;
+import core.utilities.Grafica;
 import core.utilities.GestorePagine;
 
 import javax.swing.*;
@@ -33,15 +33,15 @@ public abstract class Pagina extends JPanel {
     }
 
     public void aggiorna(Dimensione d){
-        paintImmediately(d.ingrandisci(0.5,0.5).toRectangle(this));
+        paintImmediately(d.toRectangle(this));
     }
 
-    protected abstract void draw(GestoreGrafico gestoreGrafico);
+    protected abstract void draw(Grafica grafica);
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        GestoreGrafico ge = new GestoreGrafico(this, (Graphics2D) g);
+        Grafica ge = new Grafica(this, (Graphics2D) g);
         draw(ge);
     }
 

@@ -63,7 +63,7 @@ public class MergeSort extends SortAlgorithm {
     }
 
     @Override
-    protected boolean internSort(long[] arr, long p25, long p50, long p75, AlgorithmPage board, Consumer<Boolean> update) {
+    protected boolean internSort(long[] arr, long p25, long p50, long p75, AlgorithmPage board, Consumer<UpdateInfo> update) {
         if (arr.length < 2) return false;
 
         if (stack.isEmpty() && !merging && !copyingBack) {
@@ -81,10 +81,10 @@ public class MergeSort extends SortAlgorithm {
                 Column c2 = cols.get(j);
 
                 if (arr[i] <= arr[j]) {
-                    scambioCompleto(c1, c2, update, getSuono(arr[i], p25, p50, p75));
+                    scambioCompleto(c2, c1, update, getSuono(arr[i], p25, p50, p75));
                     temp[tempIndex++] = arr[i++];
                 } else {
-                    scambioCompleto(c1, c2, update, getSuono(arr[j], p25, p50, p75));
+                    scambioCompleto(c2, c1, update, getSuono(arr[j], p25, p50, p75));
                     temp[tempIndex++] = arr[j++];
                 }
                 return true;

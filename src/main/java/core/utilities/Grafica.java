@@ -13,7 +13,7 @@ import java.awt.*;
  * @author Andrea Maruca
  */
 @Log
-public record GestoreGrafico(
+public record Grafica(
         JPanel component,
         Graphics2D g2
 ) {

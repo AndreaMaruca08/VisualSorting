@@ -1,14 +1,13 @@
 package graphics.algorithms.components;
 
 import core.utilities.Dimensione;
-import core.utilities.GestoreGrafico;
+import core.utilities.Grafica;
 import graphics.components.AlgComponent;
 import lombok.Getter;
 
 import java.awt.*;
 
 public class VisualAlgorithmCode extends AlgComponent {
-
     @Getter
     private final CodeLine[] codeLines;
 
@@ -25,7 +24,7 @@ public class VisualAlgorithmCode extends AlgComponent {
     }
 
     @Override
-    public void draw(GestoreGrafico g) {
+    public void draw(Grafica g) {
         Color color;
         Dimensione dim;
         g.font(0.7);

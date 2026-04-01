@@ -58,7 +58,7 @@ public class QuickSort extends SortAlgorithm {
     }
 
     @Override
-    protected boolean internSort(long[] arr, long p25, long p50, long p75, AlgorithmPage board, Consumer<Boolean> update) {
+    protected boolean internSort(long[] arr, long p25, long p50, long p75, AlgorithmPage board, Consumer<UpdateInfo> update) {
         if (arr.length < 2) return false;
 
         if (stack.isEmpty() && !partitioning) {
@@ -121,7 +121,6 @@ public class QuickSort extends SortAlgorithm {
             stack.pop();
             int pivotIndex = f.pivotIndex;
 
-            // Registra il pivot con i suoi bounds originali
             activePivots.put(pivotIndex, new int[]{f.low, f.high});
             specialSelect(update, cols.get(pivotIndex));
 
@@ -135,8 +134,6 @@ public class QuickSort extends SortAlgorithm {
                 stack.push(new Frame(f.low, pivotIndex - 1));
             }
 
-            // Rimuovi i pivot le cui regioni sono ora completamente ordinate
-            // (nessun frame nello stack si sovrappone a quella regione)
             var iterator = activePivots.entrySet().iterator();
             while (iterator.hasNext()) {
                 var entry = iterator.next();
@@ -145,7 +142,6 @@ public class QuickSort extends SortAlgorithm {
                 
                 boolean stillActive = false;
                 for (Frame frame : stack) {
-                    // Se un frame è dentro i bounds di questo pivot, è ancora attivo
                     if (frame.low >= bounds[0] && frame.high <= bounds[1]) {
                         stillActive = true;
                         break;

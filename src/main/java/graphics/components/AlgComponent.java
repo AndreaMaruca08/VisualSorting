@@ -1,7 +1,7 @@
 package graphics.components;
 
 import core.utilities.Dimensione;
-import core.utilities.GestoreGrafico;
+import core.utilities.Grafica;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,5 +17,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public abstract class AlgComponent {
     protected Dimensione dimensione;
-    public abstract void draw(GestoreGrafico gestoreGrafico);
+    public abstract void draw(Grafica grafica);
 }

@@ -8,7 +8,7 @@ import graphics.components.AlgoSoundManager;
 import graphics.components.Board;
 import core.Pagina;
 import core.utilities.Dimensione;
-import core.utilities.GestoreGrafico;
+import core.utilities.Grafica;
 import core.utilities.GestorePagine;
 import lombok.Getter;
 import utilities.ArraysFactory;
@@ -45,6 +45,7 @@ public class AlgorithmPage extends Pagina {
             new BubbleSort(20),
             new MergeSort(20),
             new QuickSort(20),
+            new BogoSort(5)
     };
 
     public AlgorithmPage(GestorePagine gestorePagine, SortAlgorithm algorithm, long[] arr, int min, int max) {
@@ -125,8 +126,8 @@ public class AlgorithmPage extends Pagina {
     }
 
     @Override
-    protected void draw(GestoreGrafico ge) {
-        ge.font(3);
+    protected void draw(Grafica g) {
+        g.font(3);
 
         if(algorithm.isFinished()){
             board.select();
@@ -134,17 +135,17 @@ public class AlgorithmPage extends Pagina {
             AlgoSoundManager.fine();
         }
 
-        ge.testo(DIMENSIONE_TEXT, algorithm.getName(), Color.WHITE);
-        ge.font(1);
-        ge.testo(DIMENSIONE_DIMENSIONE_ARRAY, "Dimensione: " + arr.length, Color.WHITE);
-        ge.testo(DIMENSIONE_AUTORE, "Autore: Andrea Maruca", Color.WHITE);
-        ge.disegnaTestoWrap(dettagli, DIMENSIONE_DETTAGLI, Color.WHITE);
-        ge.disegnaTestoWrap("""
+        g.testo(DIMENSIONE_TEXT, algorithm.getName(), Color.WHITE);
+        g.font(1);
+        g.testo(DIMENSIONE_DIMENSIONE_ARRAY, "Dimensione: " + arr.length, Color.WHITE);
+        g.testo(DIMENSIONE_AUTORE, "Autore: Andrea Maruca", Color.WHITE);
+        g.disegnaTestoWrap(dettagli, DIMENSIONE_DETTAGLI, Color.WHITE);
+        g.disegnaTestoWrap("""
                 Scambi: %d
                 Confronti: %d
                 """.formatted(algorithm.getSwaps(), algorithm.getCompares()), DIMENSIONE_SWAPS_COMPARES, Color.WHITE);
-        ge.font(0.85);
-        ge.disegnaTestoWrap(
+        g.font(0.85);
+        g.disegnaTestoWrap(
                 """
                 O : aumenta volume       P : diminuisci volume     VOLUME : %.2f
                 A : aumenta array        D : diminuisce array
@@ -156,8 +157,8 @@ public class AlgorithmPage extends Pagina {
                 """.formatted(AlgoSoundManager.getVolume(), algorithm.getDelayMs()),
                 DIMENSIONE_COMANDI, Color.WHITE
         );
-        ge.draw(board);
-        ge.draw(code);
+        g.draw(board);
+        g.draw(code);
 
     }
 }

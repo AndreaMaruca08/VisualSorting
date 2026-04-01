@@ -30,7 +30,7 @@ public class InsertionSort extends SortAlgorithm {
     }
 
     @Override
-    protected boolean internSort(long[] arr, long p25, long p50, long p85, AlgorithmPage board, Consumer<Boolean> update) {
+    protected boolean internSort(long[] arr, long p25, long p50, long p85, AlgorithmPage board, Consumer<UpdateInfo> update) {
         int j = i.get();
         var code = board.getCode();
 
