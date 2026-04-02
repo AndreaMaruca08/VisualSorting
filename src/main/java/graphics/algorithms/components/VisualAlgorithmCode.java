@@ -1,13 +1,13 @@
 package graphics.algorithms.components;
 
+import core.BaseComponent;
 import core.utilities.Dimensione;
 import core.utilities.Grafica;
-import graphics.components.AlgComponent;
 import lombok.Getter;
 
 import java.awt.*;
 
-public class VisualAlgorithmCode extends AlgComponent {
+public class VisualAlgorithmCode extends BaseComponent {
     @Getter
     private final CodeLine[] codeLines;
 

@@ -1,5 +1,6 @@
 package graphics.components;
 
+import core.BaseComponent;
 import core.utilities.Dimensione;
 import core.utilities.Grafica;
 import lombok.Getter;
@@ -8,12 +9,12 @@ import java.awt.*;
 
 /**
  * Represents a column component in the graphics system.
- * Extends AlgComponent and provides functionality for rendering and managing column values.
+ * Extends BaseComponent and provides functionality for rendering and managing column values.
  *
  * @author Andrea Maruca
  */
 @Getter
-public class Column extends AlgComponent{
+public class Column extends BaseComponent {
     private long val;
     private final double arrSize;
     private ColumnState state;

@@ -1,6 +1,6 @@
 package core.utilities;
 
-import graphics.components.AlgComponent;
+import core.BaseComponent;
 import lombok.extern.java.Log;
 
 import javax.swing.*;
@@ -17,7 +17,7 @@ public record Grafica(
         JPanel component,
         Graphics2D g2
 ) {
-    public void draw(AlgComponent component) {
+    public void draw(BaseComponent component) {
         component.draw(this);
     }
 
